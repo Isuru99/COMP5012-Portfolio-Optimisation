@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Spyder Editor
-
-This is a temporary script file.
-"""
-
 import numpy as np
 
 def load_portfolio_data(filepath):
@@ -15,7 +8,7 @@ def load_portfolio_data(filepath):
     with open(filepath, "r") as f:
         lines = f.readlines()
 
-    # Step 1: read expected returns (first block)
+    # Read expected returns 
     i = 0
     while lines[i].strip() != "":
         parts = lines[i].split()
@@ -37,9 +30,9 @@ def load_portfolio_data(filepath):
             corr[a, b] = value
             corr[b, a] = value
 
-    # Step 3: build covariance matrix
+    # Making Covariance Matrix
     # OR-Library provides correlation, not covariance
-    std = np.ones(n_assets)  # basic assumption for beginner level
+    std = np.ones(n_assets)  # get basic assumption 
     cov = corr * np.outer(std, std)
 
     return mu, cov
