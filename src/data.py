@@ -1,38 +1,45 @@
 import numpy as np
 
 def load_portfolio_data(filepath):
+    with open(filepath, "r") as f:
+        lines = [ln.strip() for ln in f.readlines()]
+
+    # remove completely empty lines (safe)
+    lines = [ln for ln in lines if ln != ""]
 
     returns = []
-    correlations = []
 
-    with open(filepath, "r") as f:
-        lines = f.readlines()
-
-    # Read expected returns 
+    # Read expected returns block 
     i = 0
-    while lines[i].strip() != "":
+    while i < len(lines):
         parts = lines[i].split()
-        returns.append(float(parts[0]))  # first column = expected return
+
+        # If this looks like correlation data, stop reading returns
+        if len(parts) == 3 and parts[0].isdigit() and parts[1].isdigit():
+            break
+
+        # Otherwise, treat as returns line (take first column only)
+        # (File has 2 columns here; use column 1 as expected return)
+        returns.append(float(parts[0]))
         i += 1
 
-    mu = np.array(returns)
+    mu = np.array(returns, dtype=float)
     n_assets = len(mu)
 
-    # Step 2: read correlation data
+    # Read correlation data 
     corr = np.eye(n_assets)
 
-    for line in lines[i+1:]:
+    for line in lines[i:]:
         parts = line.split()
-        if len(parts) == 3:
+        if len(parts) == 3 and parts[0].isdigit() and parts[1].isdigit():
             a = int(parts[0]) - 1
             b = int(parts[1]) - 1
             value = float(parts[2])
             corr[a, b] = value
             corr[b, a] = value
 
-    # Making Covariance Matrix
-    # OR-Library provides correlation, not covariance
-    std = np.ones(n_assets)  # get basic assumption 
-    cov = corr * np.outer(std, std)
+    # Covariance matrix 
+    std = np.ones(n_assets)             # unit std dev assumption
+    cov = corr * np.outer(std, std)     # so cov == corr
 
     return mu, cov

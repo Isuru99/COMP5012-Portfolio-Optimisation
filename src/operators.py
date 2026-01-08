@@ -9,3 +9,9 @@ def repair(w):
     else:
         w = w / total
     return w
+
+def mutate(w, std=0.05):
+    wp = w.copy()
+    idx = np.random.randint(len(w))
+    wp[idx] += np.random.normal(0, std)
+    return repair(wp)

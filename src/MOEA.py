@@ -1,3 +1,4 @@
+import numpy as np
 from src.operators import mutate
 from src.archive import Archive, dominates
 
