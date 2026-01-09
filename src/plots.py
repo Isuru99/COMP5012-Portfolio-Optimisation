@@ -13,3 +13,11 @@ def plot_pareto(archive):
     plt.grid(True)
     plt.show()
 
+def plot_archive_growth(archive):
+    import matplotlib.pyplot as plt
+    plt.plot(archive.history)
+    plt.xlabel("Iteration")
+    plt.ylabel("Archive size")
+    plt.title("Growth of Non-dominated Archive")
+    plt.show()
+
