@@ -6,9 +6,8 @@ import numpy as np
 
 mu, cov = load_portfolio_data("data/port3.txt")
 
-np.random.seed(42)
 
 problem = PortfolioProblem(mu, cov)
-archive = optimise(problem, iterations=5000)
+archive = optimise(problem, iterations=100)
 
 plot_pareto(archive)
