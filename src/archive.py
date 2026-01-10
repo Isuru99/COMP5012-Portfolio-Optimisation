@@ -5,18 +5,14 @@ def dominates(a, b):
 
 class Archive:
     def __init__(self):
-        self.X = []          # decision vectors
-        self.Y = []          # objective vectors
-        self.history = []    # archive size over time
+        self.X = []
+        self.Y = []
 
     def update(self, x, y):
-        # If any existing solution dominates the new one, discard it
         for y_old in self.Y:
             if dominates(y_old, y):
-                self.history.append(len(self.Y))
                 return
 
-        # Remove any solutions dominated by the new one
         keep = []
         for i, y_old in enumerate(self.Y):
             if not dominates(y, y_old):
@@ -25,9 +21,5 @@ class Archive:
         self.X = [self.X[i] for i in keep]
         self.Y = [self.Y[i] for i in keep]
 
-        # Add new non-dominated solution
         self.X.append(x)
         self.Y.append(y)
-
-        # Track archive size
-        self.history.append(len(self.Y))
