@@ -4,7 +4,7 @@ def load_portfolio_data(filepath):
     with open(filepath, "r") as f:
         lines = [ln.strip() for ln in f.readlines()]
 
-    # remove completely empty lines (safe)
+    # remove empty lines 
     lines = [ln for ln in lines if ln != ""]
 
     returns = []
@@ -24,10 +24,10 @@ def load_portfolio_data(filepath):
         i += 1
 
     mu = np.array(returns, dtype=float)
-    n_assets = len(mu)
+    num_assets = len(mu)
 
     # Read correlation data 
-    corr = np.eye(n_assets)
+    corr = np.eye(num_assets)
 
     for line in lines[i:]:
         parts = line.split()
@@ -39,7 +39,7 @@ def load_portfolio_data(filepath):
             corr[b, a] = value
 
     # Covariance matrix 
-    std = np.ones(n_assets)             # unit std dev assumption
+    std = np.ones(num_assets)             # unit Standard Deviation assumption
     cov = corr * np.outer(std, std)     # so cov == corr
 
     return mu, cov

@@ -5,6 +5,7 @@ from src.archive import Archive, dominates
 def optimise(problem, iterations=5000):
     n = problem.no_assets
 
+# Initialise Random Solution (normalised)
     x = np.random.rand(n)
     x = x / x.sum()
     y = problem.evaluate(x)
