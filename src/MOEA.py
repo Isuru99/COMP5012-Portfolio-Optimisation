@@ -3,7 +3,7 @@ from src.operators import mutate
 from src.archive import Archive, dominates
 
 def optimise(problem, iterations=5000):
-    n = problem.n_assets
+    n = problem.no_assets
 
     x = np.random.rand(n)
     x = x / x.sum()
@@ -12,7 +12,7 @@ def optimise(problem, iterations=5000):
     archive = Archive()
     archive.update(x, y)
 
-    for _ in range(iterations):
+    for i in range(iterations):
         xp = mutate(x)
         yp = problem.evaluate(xp)
 

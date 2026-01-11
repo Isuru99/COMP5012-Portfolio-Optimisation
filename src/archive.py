@@ -5,8 +5,8 @@ def dominates(a, b):
 
 class Archive:
     def __init__(self):
-        self.X = []
-        self.Y = []
+        self.X = [] # Solution (Decision vectors)
+        self.Y = [] # Objective vector
 
     def update(self, x, y):
         for y_old in self.Y:

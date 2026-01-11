@@ -4,7 +4,7 @@ class PortfolioProblem:
     def __init__(self, mu, cov_matrix):
         self.mu = mu
         self.cov_matrix = cov_matrix
-        self.n_assets = len(mu)
+        self.no_assets = len(mu)
 
     def evaluate(self, w):
         # Objective 1: maximise return → minimise negative return
