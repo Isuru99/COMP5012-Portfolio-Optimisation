@@ -40,6 +40,6 @@ def load_portfolio_data(filepath):
 
     # Covariance matrix 
     std = np.ones(num_assets)             # unit Standard Deviation assumption
-    cov = corr * np.outer(std, std)     # so cov == corr
+    cov = corr * np.outer(std, std)     # so covariance == correlation
 
     return mu, cov
